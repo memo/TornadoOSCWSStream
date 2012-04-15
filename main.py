@@ -17,7 +17,7 @@ import json
 
 from tornado.options import define, options
 
-define( "port", default=8888, help="run on the given port", type=int )
+define( "port", default=8080, help="run on the given port", type=int )
 
 queue = Queue.Queue()
 
@@ -81,9 +81,9 @@ def signal_handler(signal, frame):
 def main():
     signal.signal(signal.SIGINT, signal_handler)
 
-    s = OSC.ThreadingOSCServer(("localhost",5444)) # threading
-    print "Creating OSCServer on port 5444..."
-    s.addMsgHandler("/OSC", osc_handler) # adding our function
+    s = OSC.ThreadingOSCServer(("localhost",8000)) # threading
+    print "Creating OSCServer on port 8000..."
+    s.addMsgHandler("/test", osc_handler) # adding our function
     st = Thread( target = s.serve_forever )
     st.start()
 
@@ -91,7 +91,7 @@ def main():
     app = Application()
     app.listen(options.port)
     io_loop = tornado.ioloop.IOLoop.instance()
-    tornado.ioloop.PeriodicCallback( OSCWebSocketHandler.update_coords, 10.0, io_loop=io_loop ).start()
+    tornado.ioloop.PeriodicCallback( OSCWebSocketHandler.update_coords, 60.0, io_loop=io_loop ).start()
     io_loop.start()
 
 if __name__ == "__main__":
