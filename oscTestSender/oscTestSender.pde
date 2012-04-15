@@ -21,6 +21,7 @@ void draw() {
   myMessage.add(i*0.1); 
   myMessage.add(i*0.2); 
   myMessage.add(i*10); 
+  myMessage.add(random(0, 1000));
   oscP5.send(myMessage, myRemoteLocation); 
   println(i);
   i++;
