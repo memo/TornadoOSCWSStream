@@ -71,7 +71,7 @@ class OSCWebSocketHandler(tornado.websocket.WebSocketHandler):
 def osc_handler( addr, tags, stuff, source):
     global queue
     print stuff
-    queue.put( stuff[0] )
+    queue.put( stuff )
 
 
 def signal_handler(signal, frame):

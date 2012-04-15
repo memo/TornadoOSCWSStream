@@ -1,5 +1,5 @@
 var ws;
-setup = function() {
+setupWebsocket = function() {
     if ("WebSocket" in window) {
         ws = new WebSocket("ws://localhost:8080/websocket");
     } else {
@@ -7,8 +7,7 @@ setup = function() {
     }
 
     ws.onmessage = function( event ) {
-    	console.log(event.data);
-        parseMessage( JSON.parse(event.data) );
+        console.log(JSON.parse(event.data));
     }
 
     ws.onopen = function( event ) {
@@ -16,15 +15,4 @@ setup = function() {
     }
 }
 
-parseMessage = function( data ) {
-    if( data.msg ) {
-        $("#msg").html( data.msg )
-    }
-}
-
-$(document).ready(function() {
-    if (!window.console) window.console = {};
-    if (!window.console.log) window.console.log = function() {};
-
-    setup();
-});
+setupWebsocket();
