@@ -91,7 +91,7 @@ def main():
     app = Application()
     app.listen(options.port)
     io_loop = tornado.ioloop.IOLoop.instance()
-    tornado.ioloop.PeriodicCallback( OSCWebSocketHandler.update_coords, 60.0, io_loop=io_loop ).start()
+    tornado.ioloop.PeriodicCallback( OSCWebSocketHandler.update_coords, 10.0, io_loop=io_loop ).start()
     io_loop.start()
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ setupWebsocket = function() {
 
     ws.onmessage = function( event ) {
         var msg = JSON.parse(event.data).msg;
-//        console.log(msg);
+        console.log(msg);
         document.getElementById('msg').innerHTML = "";
         for(var i=0; i<msg.length; i++) {
         	document.getElementById('msg').innerHTML += "received item " + i + ": " + msg[i] + "<br />";
