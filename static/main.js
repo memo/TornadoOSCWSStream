@@ -1,9 +1,9 @@
 setupWebsocket = function() {
 	var ws;
     if ("WebSocket" in window) {
-        ws = new WebSocket("ws://localhost:8080/websocket");
+        ws = new WebSocket("ws://localhost:80/websocket");
     } else {
-        ws = new MozWebSocket("ws://localhost:8080/websocket");
+        ws = new MozWebSocket("ws://localhost:80/websocket");
     }
 
     ws.onmessage = function( event ) {
