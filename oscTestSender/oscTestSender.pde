@@ -13,11 +13,10 @@ void setup() {
 
 void draw() {
   OscMessage myMessage = new OscMessage("/test");
-  myMessage.add(i); 
-  myMessage.add(i*2); 
-  myMessage.add(i*4); 
-  myMessage.add(i*10); 
-  myMessage.add(random(0, 1000));
+    myMessage.add(i); 
+  for(int i=0; i<100; i++) {
+    myMessage.add(random(0, 1000));
+  }
   oscP5.send(myMessage, myRemoteLocation); 
   println(i);
   i++;
