@@ -54,7 +54,7 @@ class OSCWebSocketHandler(tornado.websocket.WebSocketHandler):
     @classmethod
     def update_coords( self ):
         global queue
-        if not queue.empty():
+        while not queue.empty():
             a = queue.get()
             OSCWebSocketHandler.send_updates(json.dumps({"addr":a[0], "value":a[1]}))
 
