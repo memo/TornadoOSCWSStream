@@ -55,7 +55,8 @@ class OSCWebSocketHandler(tornado.websocket.WebSocketHandler):
     def update_coords( self ):
         global queue
         if not queue.empty():
-            OSCWebSocketHandler.send_updates(json.dumps({"msg": queue.get() }))
+            a = queue.get()
+            OSCWebSocketHandler.send_updates(json.dumps({"addr":a[0], "value":a[1]}))
 
     @classmethod
     def send_updates(cls, msg ):
@@ -70,8 +71,8 @@ class OSCWebSocketHandler(tornado.websocket.WebSocketHandler):
 
 def osc_handler( addr, tags, stuff, source):
     global queue
-    print stuff
-    queue.put( stuff )
+    print addr, stuff
+    queue.put( [addr, stuff] )
 
 
 def signal_handler(signal, frame):
@@ -83,7 +84,8 @@ def main():
 
     s = OSC.ThreadingOSCServer(("localhost",8000)) # threading
     print "Creating OSCServer on port 8000..."
-    s.addMsgHandler("/test", osc_handler) # adding our function
+    s.addMsgHandler("/test/1", osc_handler) # adding our function
+    s.addMsgHandler("/test/2", osc_handler) # adding our function
     st = Thread( target = s.serve_forever )
     st.start()
 

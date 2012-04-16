@@ -7,16 +7,27 @@ setupWebsocket = function() {
     }
 
     ws.onmessage = function( event ) {
-        var msg = JSON.parse(event.data).msg;
-        console.log(msg);
-        document.getElementById('msg').innerHTML = "";
-        for(var i=0; i<msg.length; i++) {
-        	document.getElementById('msg').innerHTML += "received item " + i + ": " + msg[i] + "<br />";
+        var data = JSON.parse(event.data);
+        var addr = data.addr;
+        var value = data.value;
+        
+         console.log(addr, value, data);
+        
+        var s = "";
+        var olds = document.getElementById("msg").innerHTML.split("\n");
+        for(var i=olds.length-20; i<olds.length; i++) {
+           	if(i>=0) s += olds[i] + "\n";  
         }
+        
+        s += "<p>" + addr + " : ";
+        for(var i=0; i<value.length; i++) {
+        	s += "[" + i + ": " + value[i] + "] ";
+        }
+        s += "</p>\n";
+        document.getElementById("msg").innerHTML = s;
     }
 
     ws.onopen = function( event ) {
-
     }
 }
 

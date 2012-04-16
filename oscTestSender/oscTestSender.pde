@@ -2,7 +2,7 @@ import oscP5.*;
 import netP5.*;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
-int i=0;
+int messageLength = 3;
 
 void setup() {
   size(20, 20);
@@ -12,13 +12,23 @@ void setup() {
 }
 
 void draw() {
-  OscMessage myMessage = new OscMessage("/test");
-    myMessage.add(i); 
-  for(int i=0; i<100; i++) {
-    myMessage.add(random(0, 1000));
+  {
+    OscMessage myMessage = new OscMessage("/test/1");
+    myMessage.add(100000 + frameCount); 
+    for (int i=0; i<messageLength; i++) {
+      myMessage.add(random(0, 1000));
+    }
+    oscP5.send(myMessage, myRemoteLocation);
   }
-  oscP5.send(myMessage, myRemoteLocation); 
-  println(i);
-  i++;
+  {
+    OscMessage myMessage = new OscMessage("/test/2");
+    myMessage.add(200000 + frameCount); 
+    for (int i=0; i<messageLength; i++) {
+      myMessage.add(random(0, 1000));
+    }
+    oscP5.send(myMessage, myRemoteLocation);
+  }
+
+  println(frameCount);
 }
 
