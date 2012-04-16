@@ -82,7 +82,7 @@ def signal_handler(signal, frame):
 def main():
     signal.signal(signal.SIGINT, signal_handler)
 
-    s = OSC.ThreadingOSCServer(("localhost",8000)) # threading
+    s = OSC.ThreadingOSCServer(("",8000)) # threading
     print "Creating OSCServer on port 8000..."
     s.addMsgHandler("/test/1", osc_handler) # adding our function
     s.addMsgHandler("/test/2", osc_handler) # adding our function
